@@ -1,6 +1,6 @@
 {
   "name": "jsreport-static-pdf",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "jsreport recipe which loads pdf from static source",
   "main": "index.js",
   "keywords": [
