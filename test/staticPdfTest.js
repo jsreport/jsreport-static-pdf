@@ -28,7 +28,9 @@ describe('static-pdf', () => {
         engine: 'none',
         recipe: 'static-pdf',
         staticPdf: {
-          rawContent: fs.readFileSync(path.join(__dirname, 'static.pdf'))
+          pdfAsset: {
+            content: fs.readFileSync(path.join(__dirname, 'static.pdf'))
+          }
         }
       }
     })
@@ -43,7 +45,10 @@ describe('static-pdf', () => {
         engine: 'none',
         recipe: 'static-pdf',
         staticPdf: {
-          rawContent: fs.readFileSync(path.join(__dirname, 'static.pdf')).toString('base64')
+          pdfAsset: {
+            content: fs.readFileSync(path.join(__dirname, 'static.pdf')).toString('base64'),
+            encoding: 'base64'
+          }
         }
       }
     })
@@ -70,6 +75,21 @@ describe('static-pdf', () => {
     })
 
     should(result.content.toString().includes('PDF')).be.true()
+  })
+
+  it('should throw error when inline asset does not specify encoding', async () => {
+    return should(reporter.render({
+      template: {
+        content: 'Hello',
+        engine: 'none',
+        recipe: 'static-pdf',
+        staticPdf: {
+          pdfAsset: {
+            content: fs.readFileSync(path.join(__dirname, 'static.pdf')).toString('base64')
+          }
+        }
+      }
+    })).be.rejectedWith(/encoding is required/)
   })
 
   it('should throw error when asset reference is not PDF', async () => {
