@@ -111,6 +111,27 @@ _jsreportStudio2.default.addPropertiesComponent(_StaticPdfTemplateProperties2.de
   return entity.__entitySet === 'templates' && entity.recipe === 'static-pdf';
 });
 
+_jsreportStudio2.default.entityEditorComponentKeyResolvers.push(function (entity) {
+  if (entity.__entitySet === 'templates' && entity.recipe === 'static-pdf') {
+    var pdfAsset = void 0;
+
+    if (entity.staticPdf != null && entity.staticPdf.pdfAssetShortid != null) {
+      pdfAsset = _jsreportStudio2.default.getEntityByShortid(entity.staticPdf.pdfAssetShortid, false);
+    }
+
+    return {
+      key: 'assets',
+      entity: pdfAsset,
+      props: {
+        icon: 'fa-link',
+        embeddingCode: '',
+        displayName: 'pdf asset: ' + (pdfAsset != null ? pdfAsset.name : '<none>'),
+        emptyMessage: 'No pdf asset assigned, please add a reference to a pdf asset in the properties'
+      }
+    };
+  }
+});
+
 _jsreportStudio2.default.addApiSpec({
   template: {
     staticPdf: {
