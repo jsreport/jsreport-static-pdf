@@ -53,7 +53,7 @@
     "should": "13.2.3",
     "standard": "12.0.1"
   },
-  "file": [
+  "files": [
     "lib",
     "studio",
     "index.js",
